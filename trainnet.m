@@ -6,7 +6,7 @@ function [net]=trainnet(net,train_image,train_label)
 %获取图像数目，卷积核数目
 [image_num,label_num]=size(train_label);
 %迭代训练1000000次
-iternum=1;
+iternum=1000000;
 
 %训练函数
 for i=1:iternum
@@ -19,13 +19,19 @@ for i=1:iternum
     
     %反向传播，更新参数的值
     input_label=train_label(temp,:);
-    mu=0.0001;
+    mu=0.001;
     net=backward(net,input_label,input_image,mu);
     
-    if mod(i,1000)==1
+ 
+    if mod(i,10)==1
         t=net.back{size(net.back,2)};
+        disp(i);
         disp(dot(t,t'));
     end
     %每过10000次，保存网络
+    if mod(i,10000)==0
+        disp('保存网络');
+        savenet('net_mnist.mat',net);
+    end
 end
 end

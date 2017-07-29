@@ -52,7 +52,6 @@ function [resulti] = addtime(net,input_image,layer_i)
                     result_now(k_now,:,:) = result_now(k_now,:,:) + temp;
                 end
             end
-            %这里reshape没改变大小,没有危险
         end     
     end
     
