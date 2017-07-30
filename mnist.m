@@ -53,8 +53,8 @@ test_label_raw=loadMNISTLabels(str3);
  disp('保存标签中')
  save('train_label_mnist.mat','train_label');
  save('test_label_mnist.mat','test_label');
-%通道数为1，卷积核皆为3*3，图像边长27，10种标签
-net=setparameter(1,3,27,10);
+%通道数为1，卷积核皆为3*3，图像边长27，10种标签,3层
+net=setparameter(1,3,27,10,4);
 savenet('net_mnist.mat',net);
 
 

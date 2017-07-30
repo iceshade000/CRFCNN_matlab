@@ -6,6 +6,7 @@
 %%
 function [temp]=maxpooling(blob,kernel)
     [m,n,n1] = size(blob);%10,27,27
+    assert( kernel~=0,'卷积核大小不能为0');
     new_len=floor(n/kernel);%9
     temp= zeros(m,new_len,new_len);
   for iter=1:m

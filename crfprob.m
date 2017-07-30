@@ -5,6 +5,7 @@
 %%
 function [result]=crfprob(blob)
     [n1,n2,n3]=size(blob);%10*9*9
+    assert( n1>1,'类别数必须为两个或以上');
     temp=exp(blob);
     for i=1:n2
         for j=1:n3
@@ -12,6 +13,7 @@ function [result]=crfprob(blob)
             for t=1:n1
               all=all+temp(t,i,j);
             end
+            assert( all~=0,'概率分母不可能为0');
             for t=1:n1
                 temp(t,i,j)=temp(t,i,j)/all;
             end

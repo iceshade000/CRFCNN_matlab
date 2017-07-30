@@ -5,6 +5,7 @@
 function [back]=back_maxp(pre,delta)
     [pn1,pn2,pn3]=size(pre);%10*9*9
     [dn1,dn2,dn3]=size(delta);%10*3*3
+    assert( dn2~=0,'delta第二维不为0');
     kernel=floor(pn2/dn2);%3
     back=zeros(pn1,pn2,pn3);
     for i=1:pn1
