@@ -5,11 +5,10 @@
 %delta是残差lambda用到的卷积参数
 %输出：back传到前一层的误差
 %%
-function [back]=back_conv(pre,now,delta,lambda)
-    [ln1,ln2,ln3,ln4]=size(lambda);%10,10，3，3
-    [pn1,pn2,pn3]=size(pre);%10*9*9
-    [nn1,nn2,nn3]=size(now);%10*3*3
-    [dn1,dn2,dn3]=size(delta);%10*3*3
+function [back]=back_conv(pre,delta,lambda)
+    [ln1,ln2,ln3,ln4]=size(lambda);%20,10，3，3
+    %[pn1,pn2,pn3]=size(pre);%10*9*9
+    [dn1,dn2,dn3]=size(delta);%20*3*3
     pre_temp=zeros(dn1,dn2,dn3);%前一层输出maxpooling后的残差10*3*3
     
     for i=1:ln1     

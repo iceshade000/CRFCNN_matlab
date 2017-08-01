@@ -16,8 +16,8 @@ disp('读取测试标签')
 input0=load('test_label_mnist.mat');
 test_label=input0.test_label;
 
-%通道数为1，卷积核皆为3*3，图像边长27，10种标签,3层
-%net=setparameter(1,3,27,10,4);
+%通道数为1，卷积核皆为5*5，图像边长27，10种标签,3层
+%net=setparameter(1,5,27,10,3);
 %savenet('net_mnist.mat',net);
 disp('读取网络')
 net=load('net_mnist.mat');
@@ -31,3 +31,12 @@ net=trainnet(net,train_image,train_label);
 
 %输入训练好的网络以及测试集，进行测试
 %testnet(net,test_image,test_label);
+
+%目标检测，利用训练好的网络，定位目标位置
+%input_image=train_image{1}(10000,:,:);
+%input_label=train_label(10000,:);
+%temp=detectnet(net,input_image,input_label);
+%subplot(1,2,1);
+%imshow(temp,[]);
+%subplot(1,2,2);
+%imshow(squeeze(input_image),[]);

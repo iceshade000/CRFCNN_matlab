@@ -25,16 +25,16 @@ layer{1}=rand(kernel_num,tunnel_num,kernel_len,kernel_len);
 bias{1}= rand(kernel_num,tunnel_num);
 %后面的层统一处理
 for i=2:layer_num-1
-    layer{i}=rand(kernel_num,kernel_num,kernel_len,kernel_len);
-    bias{i}=rand(kernel_num,kernel_num);
+    layer{i}=rand(i*kernel_num,(i-1)*kernel_num,kernel_len,kernel_len);
+    bias{i}=rand(i*kernel_num,(i-1)*kernel_num);
 end
 %最后一层maxpooling+crfprob再加个全连接层，因此参数为10*10
-layer{layer_num}=rand(kernel_num,kernel_num);
+layer{layer_num}=rand(kernel_num,(layer_num-1)*kernel_num);
 
 %设置好各层输出
 temp=image_len;
 for i=1:layer_num-1
-    result{i}=zeros(kernel_num,temp,temp);
+    result{i}=zeros(i*kernel_num,temp,temp);
     temp=floor(temp/kernel_len);
 end
 %最后一层输出直接变为10*1*1

@@ -27,7 +27,7 @@ function [net]=backward(net,input_label,input_image,mu)
         delta=change(delta,noww);
         
         %卷积部分              
-        temp_back=back_conv(net.result{now-1},noww,delta,net.layer{now});
+        temp_back=back_conv(net.result{now-1},delta,net.layer{now});
         net.back{now-1}=net.back{now-1}+temp_back;
     end
     %%
@@ -45,7 +45,7 @@ function [net]=backward(net,input_label,input_image,mu)
         
         %使用maxpooling增大卷积核的感受野
         if now>1
-            input_blob=maxpooling(net.result{now-1},kernel);%10*3*3
+            input_blob=maxpooling(net.result{now-1},net.result{now});%10*3*3
         else
             input_blob=input_image;
         end

@@ -15,6 +15,6 @@ function [net]=forward(net,input_image)
         net.result{i}=addtime(net,input_image,i);
     end
     %最后一层采用全连接层
-    net.result{layer_num}=full_connect(net.result{layer_num-1},net.layer{layer_num});
+    net.result{layer_num}=full_connect(net.result{layer_num},net.result{layer_num-1},net.layer{layer_num});
     
 end

@@ -7,11 +7,12 @@ function [net]=trainnet(net,train_image,train_label)
 [image_num,label_num]=size(train_label);
 %迭代训练1000000次
 iternum=1000000;
-mu=0.1;
+mu=10;
+all=0;
 %训练函数
 for i=1:iternum
     %从图像中随机选取一个,以后可以改进成随机选取一块
-    temp=randi(image_num);
+    temp=mod(randi(image_num)+30000,image_num)+1;
     input_image=train_image{1}(temp,:,:);
     
     %前向计算，每过1000次输出总误差（均方误差）
@@ -20,10 +21,20 @@ for i=1:iternum
     %反向传播，更新参数的值
     input_label=train_label(temp,:);
     net=backward(net,input_label,input_image,mu);
+    %如果出错了就再跑一次
+    t=net.back{size(net.back,2)};
+    if dot(t,t')>0.5 %经过计算可知，小于0.5肯定没错
+       % net=forward(net,input_image);
+        all=all+1;
+        %net=backward(net,input_label,input_image,mu);
+    end
     
+    if mod(i,100)==1;
+        disp(['错误数量：',num2str(all)]);
+        all=0;
+    end
  
-    if mod(i,20)==1
-        t=net.back{size(net.back,2)};
+    if mod(i,20)==1         
         
         disp(['第',num2str(i),'轮迭代: ']);
         net=forward(net,input_image);

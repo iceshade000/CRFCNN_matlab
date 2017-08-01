@@ -4,8 +4,10 @@
 %输出：maxpooling的结果temp
 
 %%
-function [temp]=maxpooling(blob,kernel)
+function [temp]=maxpooling(blob,input_blob)
     [m,n,n1] = size(blob);%10,27,27
+    n2=size(input_blob,2);
+    kernel=floor(n/n2);
     assert( kernel~=0,'卷积核大小不能为0');
     new_len=floor(n/kernel);%9
     temp= zeros(m,new_len,new_len);

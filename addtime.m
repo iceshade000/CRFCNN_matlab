@@ -24,13 +24,13 @@ function [resulti] = addtime(net,input_image,layer_i)
         %后面的层分为两个部分，第一部分与第一层类似
         %使用maxpooling增大卷积核的感受野
         result_pre=net.result{layer_i-1};
-        input_blob=maxpooling(result_pre,kernel);%10*9*9
+        input_blob=maxpooling(result_pre,result_now);%10*9*9
                 
-        [m,n,n1]=size(input_blob);
+        [m,n,n1]=size(layer);
         
         for k_now=1:m
             %对现在的每个卷积核
-            for k_pre=1:m
+            for k_pre=1:n
                 %对之前的每个卷积核
                 temp_filter=squeeze(layer(k_now,k_pre,:,:));%3*3
                 temp_input=squeeze(input_blob(k_pre,:,:));%9*9
